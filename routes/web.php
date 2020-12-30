@@ -17,6 +17,8 @@ Route::get('/', 'FrontController@index')->name('index');
 
 Route::prefix('admin')->middleware('auth')->group(function (){
    Route::get('/', 'AdminController@index')->name('admin.index');
+   Route::get('/education-list', 'EducationController@list')->name('admin.education.list');
+   Route::get('/education-add', 'EducationController@addShow')->name('admin.education.add');
 });
 
 

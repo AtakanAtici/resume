@@ -13,6 +13,6 @@ class AdminController extends Controller
 
     public function index()
     {
-        dd('geldi');
+        return view('admin.index');
     }
 }
