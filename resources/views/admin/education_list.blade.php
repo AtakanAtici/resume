@@ -31,14 +31,34 @@
                             <tr>
                                 <th>#</th>
                                 <th>Date</th>
-                                <th>Department</th>
                                 <th>School Name</th>
-                                <th>Explanation</th>
+                                <th>Department</th>
+                                <th>Status</th>
                             </tr>
                             </thead>
                             <tbody>
 
+                                @foreach($list as $item)
+                                    <?php
+                                            $status=0;
+                                    if($item->status == 1)
+                                        {
+                                            $status="Active";
+                                        }
+                                    else
+                                        {
+                                            $status ="Not Active";
+                                        }
+                                    ?>
 
+                                <tr>
+                                    <td>{{ $item->id }}</td>
+                                    <td>{{ $item->education_date }}</td>
+                                    <td>{{ $item->school_name }}</td>
+                                    <td>{{ $item->education_department }}</td>
+                                    <td>{{ $status }}</td>
+                                </tr>
+                                @endforeach
 
                             </tbody>
                         </table>

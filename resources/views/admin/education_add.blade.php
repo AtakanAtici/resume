@@ -53,7 +53,7 @@
                                 <input type="checkbox" name="status" id="status" class="form-check-input"> Show on page  </label>
                         </div>
                         <button type="button" id="createButton" class="btn btn-primary mr-2">Save</button>
-                        <button class="btn btn-dark">Cancel</button>
+                        <a class="btn btn-dark" href="{{ route('admin.education.list') }}">Cancel</a>
                     </form>
                 </div>
             </div>

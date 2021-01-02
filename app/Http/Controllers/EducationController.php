@@ -10,7 +10,9 @@ class EducationController extends Controller
 {
     public function list()
     {
-        return view('admin.education_list');
+        $list=Education::all();
+
+        return view('admin.education_list', compact('list'));
     }
     public function addShow()
     {
