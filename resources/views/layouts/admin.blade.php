@@ -8,6 +8,7 @@
     <!-- plugins:css -->
     <link rel="stylesheet" href="{{ asset('assets/vendors/mdi/css/materialdesignicons.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendors/css/vendor.bundle.base.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/seetalert/sweetalert2.css') }}">
     <!-- endinject -->
     <!-- Plugin css for this page -->
     <!-- End Plugin css for this page -->
@@ -359,6 +360,8 @@
 <script src="{{ asset('assets/js/misc.js') }}"></script>
 <script src="{{ asset('assets/js/settings.js') }}"></script>
 <script src="{{ asset('assets/js/todolist.js') }}"></script>
+<script src="{{ asset('assets/sweetalert/sweetalert2.all.js') }}"></script>
+@include('sweetalert::alert')
 @yield('js')
 <!-- endinject -->
 <!-- Custom js for this page -->
