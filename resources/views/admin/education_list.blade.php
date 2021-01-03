@@ -34,6 +34,8 @@
                                 <th>Date</th>
                                 <th>Department</th>
                                 <th>Status</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -53,12 +55,22 @@
                                         }
                                     ?>
 
-                                <tr>
+                                <tr id="{{ $item->id }}">
                                     <td>{{ $item->id }}</td>
                                     <td>{{ $item->school_name }}</td>
                                     <td>{{ $item->education_date }}</td>
                                     <td>{{ $item->education_department }}</td>
                                     <td><a data-id="{{ $item->id }}" class="btn {{ $buttonClass }} changeStatus" href="javascript:void(0)">{{ $status }}</a></td>
+                                    <td>
+                                        <a data-id="{{ $item->id }}" href="{{ route('admin.education.add', ['educationID' => $item->id]) }}" class="btn btn-warning text-center editEducation">
+                                            <i class="fa fa-edit"> Düzenle</i>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a data-id="{{ $item->id }}" href="javascript:void(0)" class="btn btn-danger text-center deleteEducation">
+                                        <i class="fa fa-trash"> Sil</i>
+                                        </a>
+                                    </td>
                                 </tr>
                                 @endforeach
 
@@ -78,7 +90,7 @@
                 'X-CSRF-TOKEN' : $('meta[name="csrf_token"]').attr("content")
             }
         });
-
+        //Status Change
         $('.changeStatus').click(function () {
           //let educationID = $(this).data('id');
             let educationID = $(this).attr('data-id');
@@ -122,6 +134,52 @@
 
                 }
             });
+
+
+        });
+        //Delete & Edit
+        $('.deleteEducation').click(function () {
+
+            let educationID = $(this).attr('data-id');
+
+            Swal.fire({
+                title: "Emin Misiniz?",
+                text: educationID + " ID'li Eğitim bilgisini silmek istiyor musunuz?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Evet',
+                cancelButtonText: 'Hayır'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "{{ route('admin.education.delete') }}",
+                        type: "POST",
+                        async: false,
+                        data: {
+                            educationID : educationID
+                        },
+                        success: function (response)
+                        {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Başarılı',
+                                text: 'Silme İşlemi Başarılı',
+                                confirmButtonText:'Tamam'
+                            });
+                            $("tr#" + educationID).remove();
+                        },
+                        eroor: function ()
+                        {
+
+                        }
+
+
+                    })
+
+                }
+            })
 
 
         });

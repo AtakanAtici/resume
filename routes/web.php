@@ -19,6 +19,7 @@ Route::prefix('admin')->middleware('auth')->group(function (){
    Route::get('/', 'AdminController@index')->name('admin.index');
    Route::get('/education-list', 'EducationController@list')->name('admin.education.list');
    Route::post('/education-change-status', 'EducationController@changeStatus')->name('admin.education.changeStatus');
+   Route::post('/education-delete', 'EducationController@delete')->name('admin.education.delete');
    Route::get('/education-add', 'EducationController@addShow')->name('admin.education.add');
    Route::post('/education-add', 'EducationController@add');
 });

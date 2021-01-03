@@ -38,13 +38,19 @@ class EducationController extends Controller
             'newStatus' => $newStatus,
             'educationID' => $id,
             'status' => $status
-        ]);
+        ],200);
 
     }
 
-    public function addShow()
+    public function addShow(Request $request)
     {
-        return view('admin.education_add');
+        $id = $request->educationID;
+        $education=null;
+        if (!is_null($id))
+        {
+            $education=Education::find($id);
+        }
+        return view('admin.education_add', compact('education'));
     }
 
     public function add(EducationAddRequest $request)
@@ -55,18 +61,46 @@ class EducationController extends Controller
             $status=1;
         }
 
-        $data=[
-            "education_date"        => $request->education_date,
-            "school_name"           => $request->school_name,
-            "education_department"  => $request->education_department,
-            "education_explanation" => $request->education_explanation,
-            "status"                => $status
-        ];
 
-        Education::create($data);
-        //Sweet Alert Çalışmıyor
-        //alert()->success('SuccessAlert','Lorem ipsum dolor sit amet.')->addImage('https://unsplash.it/400/200')->persistent(true,false);
+        if(isset($request->educationID))
+        {
+            $id=$request->educationID;
+             Education::where("id", $id)
+                 ->update([
+                "education_date"        => $request->education_date,
+                "school_name"           => $request->school_name,
+                "education_department"  => $request->education_department,
+                "education_explanation" => $request->education_explanation,
+                "status"                => $status
+            ]);
+            return redirect()->route('admin.education.list');
+        }
+        else
+        {
 
-        return redirect()->route('admin.education.list');
+            $data=[
+                "education_date"        => $request->education_date,
+                "school_name"           => $request->school_name,
+                "education_department"  => $request->education_department,
+                "education_explanation" => $request->education_explanation,
+                "status"                => $status
+            ];
+            Education::create($data);
+            //Sweet Alert Çalışmıyor
+            //alert()->success('SuccessAlert','Lorem ipsum dolor sit amet.')->addImage('https://unsplash.it/400/200')->persistent(true,false);
+
+            return redirect()->route('admin.education.list');
+        }
+
+    }
+
+    public function delete(Request $request)
+    {
+        $id = $request->educationID;
+
+        Education::where('id',$id)->delete();
+
+        return response()->json([], 200);
+
     }
 }

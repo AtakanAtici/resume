@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="{{ asset('assets/vendors/mdi/css/materialdesignicons.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendors/css/vendor.bundle.base.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/seetalert/sweetalert2.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/icon-fonts/font-awesome-4.7.0/css/font-awesome.min.css') }}">
     <!-- endinject -->
     <!-- Plugin css for this page -->
     <!-- End Plugin css for this page -->
