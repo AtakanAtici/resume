@@ -30,8 +30,8 @@
                             <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Date</th>
                                 <th>School Name</th>
+                                <th>Date</th>
                                 <th>Department</th>
                                 <th>Status</th>
                             </tr>
@@ -41,22 +41,24 @@
                                 @foreach($list as $item)
                                     <?php
                                             $status=0;
+                                            $buttonClass="btn-danger";
                                     if($item->status == 1)
                                         {
                                             $status="Active";
+                                            $buttonClass="btn-success";
                                         }
                                     else
                                         {
-                                            $status ="Not Active";
+                                            $status ="disable";
                                         }
                                     ?>
 
                                 <tr>
                                     <td>{{ $item->id }}</td>
-                                    <td>{{ $item->education_date }}</td>
                                     <td>{{ $item->school_name }}</td>
+                                    <td>{{ $item->education_date }}</td>
                                     <td>{{ $item->education_department }}</td>
-                                    <td>{{ $status }}</td>
+                                    <td><a data-id="{{ $item->id }}" class="btn {{ $buttonClass }} changeStatus" href="javascript:void(0)">{{ $status }}</a></td>
                                 </tr>
                                 @endforeach
 
@@ -69,4 +71,59 @@
 @endsection
 
 @section('js')
+    <script>
+
+        $.ajaxSetup({
+            headers:{
+                'X-CSRF-TOKEN' : $('meta[name="csrf_token"]').attr("content")
+            }
+        });
+
+        $('.changeStatus').click(function () {
+          //let educationID = $(this).data('id');
+            let educationID = $(this).attr('data-id');
+            let self = $(this);
+
+            $.ajax({
+               url: "{{ route('admin.education.changeStatus') }}",
+               //method: "POST"
+               type:"POST",
+               async:false,
+                data:{
+                   educationID: educationID
+                },
+                success: function (response)
+                {
+
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Başarılı',
+                        text: response.educationID+" ID'li kayıt durumu "+ response.newStatus +" olarak güncellendi.",
+                        confirmButtonText:'Tamam'
+                    });
+
+                    
+                    if (response.status ==1)
+                    {
+                        self.removeClass("btn-danger");
+                        self.addClass("btn-success");
+                        self[0].innerText="Active";
+                    }
+                    else if (response.status ==0) 
+                    {
+                        self.removeClass("btn-success");
+                        self.addClass("btn-danger");
+                        self[0].innerText="Disable";
+                    }
+
+                },
+                error: function ()
+                {
+
+                }
+            });
+
+
+        });
+    </script>
 @endsection

@@ -14,10 +14,39 @@ class EducationController extends Controller
 
         return view('admin.education_list', compact('list'));
     }
+
+    public function changeStatus(Request $request)
+    {
+        $newStatus=null;
+        $id = $request->educationID;
+        $findEducation = Education::find($id);
+        $status = $findEducation->status;
+        if ($status)
+        {
+            $status = 0;
+            $newStatus="Disabled";
+        }
+        else
+        {
+            $status=1;
+            $newStatus="Active";
+        }
+        $findEducation->status=$status;
+        $findEducation->save();
+
+        return response()->json([
+            'newStatus' => $newStatus,
+            'educationID' => $id,
+            'status' => $status
+        ]);
+
+    }
+
     public function addShow()
     {
         return view('admin.education_add');
     }
+
     public function add(EducationAddRequest $request)
     {
         $status= 0;
