@@ -61,7 +61,7 @@ class EducationController extends Controller
             $status=1;
         }
 
-
+        //Güncelleme
         if(isset($request->educationID))
         {
             $id=$request->educationID;
@@ -75,6 +75,7 @@ class EducationController extends Controller
             ]);
             return redirect()->route('admin.education.list');
         }
+        //Ekleme
         else
         {
 
