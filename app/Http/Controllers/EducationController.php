@@ -56,6 +56,7 @@ class EducationController extends Controller
     public function add(EducationAddRequest $request)
     {
         $status= 0;
+        $order = $request->order;
         if (isset($request->status))
         {
             $status=1;
@@ -71,7 +72,8 @@ class EducationController extends Controller
                 "school_name"           => $request->school_name,
                 "education_department"  => $request->education_department,
                 "education_explanation" => $request->education_explanation,
-                "status"                => $status
+                "status"                => $status,
+                "order"                 =>$order ? $order : 999
             ]);
             return redirect()->route('admin.education.list');
         }
@@ -84,7 +86,8 @@ class EducationController extends Controller
                 "school_name"           => $request->school_name,
                 "education_department"  => $request->education_department,
                 "education_explanation" => $request->education_explanation,
-                "status"                => $status
+                "status"                => $status,
+                "order"                 =>$order ? $order : 999
             ];
             Education::create($data);
             //Sweet Alert Çalışmıyor

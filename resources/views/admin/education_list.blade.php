@@ -56,7 +56,7 @@
                                     ?>
 
                                 <tr id="{{ $item->id }}">
-                                    <td>{{ $item->id }}</td>
+                                    <td>{{ $item->order }}</td>
                                     <td>{{ $item->school_name }}</td>
                                     <td>{{ $item->education_date }}</td>
                                     <td>{{ $item->education_department }}</td>

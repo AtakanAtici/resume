@@ -60,6 +60,13 @@
                             <label for="education_explanation">Explanation</label>
                             <textarea class="form-control" name="education_explanation" id="education_explanation" rows="4">{{ $education ? $education->education_explanation : '' }}</textarea>
                         </div>
+                        <div class="form-group">
+                            <label for="order">Sıra</label>
+                            <input type="text" name="order" class="form-control" id="order" placeholder="Sıra" value="{{ $education ? $education->order : '' }}">
+                            @error('order')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
                         <div class="form-check form-check-flat form-check-primary">
                             <label class="form-check-label">
                                 <?php

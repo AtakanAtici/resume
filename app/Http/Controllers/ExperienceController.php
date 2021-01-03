@@ -28,6 +28,7 @@ class ExperienceController extends Controller
     public function add(ExperienceRequest $request)
     {
         $status= 0;
+        $order = $request->order;
         if (isset($request->status))
         {
             $status=1;
@@ -43,7 +44,8 @@ class ExperienceController extends Controller
                     "company"     => $request->company,
                     "task_name"   => $request->task_name,
                     "description" => $request->description,
-                    "status"      => $status
+                    "status"      => $status,
+                    "order"       =>$order ? $order : 999
                 ]);
             return redirect()->route('admin.experience.list');
         }
@@ -56,7 +58,8 @@ class ExperienceController extends Controller
                 "company"     => $request->company,
                 "task_name"   => $request->task_name,
                 "description" => $request->description,
-                "status"      => $status
+                "status"      => $status,
+                "order"       =>$order ? $order : 999
             ];
             Experience::create($data);
             //Sweet Alert Çalışmıyor
@@ -91,6 +94,16 @@ class ExperienceController extends Controller
             'experienceID' => $id,
             'status' => $status
         ],200);
+
+    }
+
+    public function delete(Request $request)
+    {
+        $id = $request->experienceID;
+
+        Experience::where('id',$id)->delete();
+
+        return response()->json([], 200);
 
     }
 }
