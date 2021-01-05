@@ -111,6 +111,14 @@
                     <span class="menu-title">Work History</span>
                 </a>
             </li>
+            <li class="nav-item menu-items">
+                <a class="nav-link" href="{{ route('admin.personalInformation.index') }}">
+              <span class="menu-icon">
+                <i class="mdi mdi-speedometer"></i>
+              </span>
+                    <span class="menu-title">Personal Information</span>
+                </a>
+            </li>
 
             {{--}}
             <li class="nav-item menu-items">
