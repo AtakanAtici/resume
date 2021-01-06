@@ -37,6 +37,16 @@ Route::prefix('admin')->middleware('auth')->group(function (){
    Route::get('/personal-information' , 'PersonalInformationController@index')->name('admin.personalInformation.index');
    Route::post('personal-information' , 'PersonalInformationController@update');
 
+   Route::prefix('social-media')->group(function (){
+
+    Route::get('/list', 'socialMediaController@list')->name('admin.socialMedia.list');
+    Route::get('/add','socialMediaController@addShow')->name('admin.socialMedia.addShow');
+    Route::post('/add','socialMediaController@add');
+    Route::post('/change-status', 'socialMediaController@changeStatus')->name('admin.socialMedia.changeStatus');
+    Route::post('/delete', 'socialMediaController@delete')->name('admin.socialMedia.delete');
+
+   });
+
 });
 
 
